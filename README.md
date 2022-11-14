@@ -2,6 +2,9 @@
 
 <br>
 
+![LazyPac in action](./lazypac_snap.png)
+
+<br>
 
 **Make sure python is installed in your machine.**
 
