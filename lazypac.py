@@ -16,19 +16,13 @@ install_pip() if not which("pip") else None
 install_pacman_contrib() if not which("paccache") else None
 
 
-error_hit = False
-
-
 try:
     from clint.textui import colored
 except ModuleNotFoundError:
     print("\nDependency missing! Installing...\n")
-    os.system("pip install clint")
-    error_hit = True
-
-
-if error_hit:
-    from clint.textui import colored
+    os.system("pip3 install clint")
+    print("\nRelaunch lazypac again to load the installed dependencies...")
+    exit()
 
 
 def orphan_pkg_remove_choice_input_handler() -> bool:
@@ -97,7 +91,7 @@ def full_system_upgrade() -> None:
 
 def list_menu() -> int:
     print("\n")
-    print(colored.blue("LazyPac: No Frill Pacman Simplifier"))
+    print(colored.blue("Lazypac- Pacman simplifier for lazy pacman users"))
     print(colored.green("1. Package Installer"))
     print(colored.green("2. Package Un-installer"))
     print(colored.green("3. Package Search"))
