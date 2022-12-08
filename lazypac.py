@@ -25,15 +25,8 @@ except ModuleNotFoundError:
     exit()
 
 
-def orphan_pkg_remove_choice_input_handler() -> bool:
-    while True:
-        input_choice = input(
-            "Do you want to uninstall orphan packages? (y/n): "
-        ).lower()
-        if input_choice not in ("y", "n"):
-            print(colored.red("Invalid input. Try again."))
-        else:
-            return True if input_choice == "y" else False
+def clear_console() -> None:
+    os.system("clear")
 
 
 def list_menu_input_handler() -> int:
@@ -44,6 +37,48 @@ def list_menu_input_handler() -> int:
             print(colored.red("Invalid input. Try again"))
         else:
             return choice
+
+
+def package_viewer_menu() -> int:
+    print("\n")
+    print(colored.cyan("1. All Packages"))
+    print(colored.cyan("2. system package + explicitly installed"))
+    print(colored.cyan("3. Explicitly installed"))
+    print(colored.cyan("4. Only dependencies or orphans"))
+    print(colored.yellow("0. Back"))
+    choice_input = list_menu_input_handler()
+    return choice_input
+
+
+def show_installed_packages() -> None:
+    while True:
+        choice_input = package_viewer_menu()
+        match choice_input:
+            case 0:
+                break
+            case 1:
+                clear_console()
+                os.system("pacman -Q")
+            case 2:
+                clear_console()
+                os.system("pacman -Qe")
+            case 3:
+                clear_console()
+                os.system("pacman -Qet")
+            case 4:
+                clear_console()
+                os.system("pacman -Qdt")
+
+
+def orphan_pkg_remove_choice_input_handler() -> bool:
+    while True:
+        input_choice = input(
+            "Do you want to uninstall orphan packages? (y/n): "
+        ).lower()
+        if input_choice not in ("y", "n"):
+            print(colored.red("Invalid input. Try again."))
+        else:
+            return True if input_choice == "y" else False
 
 
 def pkg_installer() -> None:
@@ -95,9 +130,10 @@ def list_menu() -> int:
     print(colored.green("1. Package Installer"))
     print(colored.green("2. Package Un-installer"))
     print(colored.green("3. Package Search"))
-    print(colored.green("4. Full system upgrade"))
+    print(colored.green("4. Full System Upgrade"))
     print(colored.green("5. Manage Orphan packages"))
     print(colored.green("6. Remove Pacman cache"))
+    print(colored.green("7. Installed Packages"))
     print(colored.red("0. Exit"))
     choice = list_menu_input_handler()
     return choice
@@ -108,6 +144,9 @@ def navigation() -> None:
         while True:
             choice_input = list_menu()
             match choice_input:
+                case 0:
+                    print(colored.blue("\nBYE..."))
+                    break
                 case 1:
                     pkg_installer()
                 case 2:
@@ -120,9 +159,9 @@ def navigation() -> None:
                     orphan_pkg_manage()
                 case 6:
                     pacman_cache_remove()
-                case 0:
-                    print(colored.blue("\nBYE..."))
-                    break
+                case 7:
+                    show_installed_packages()
+
     except KeyboardInterrupt:
         print(colored.blue("\nBYE..."))
 
