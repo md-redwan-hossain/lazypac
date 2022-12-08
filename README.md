@@ -1,8 +1,8 @@
-# LazyPac: No Frill Pacman Simplifier
+# Lazypac- Pacman Simplifier for Lazy Pacman Users
 
 <br>
 
-![LazyPac in action](./lazypac_screenshot.png)
+![LazyPac in action](./lazypac_in_action.png)
 
 <br>
 

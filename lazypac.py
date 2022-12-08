@@ -83,9 +83,9 @@ def list_menu_input_handler() -> int:
 def package_viewer_menu() -> int:
     print("\n")
     print(colored.cyan("1. All Packages"))
-    print(colored.cyan("2. system package + explicitly installed"))
-    print(colored.cyan("3. Explicitly installed"))
-    print(colored.cyan("4. Only dependencies or orphans"))
+    print(colored.cyan("2. System Packages + Explicitly Installed"))
+    print(colored.cyan("3. Explicitly Installed"))
+    print(colored.cyan("4. Dependencies or Orphans"))
     print(colored.yellow("0. Back"))
     choice_input = list_menu_input_handler()
     return choice_input
@@ -167,7 +167,7 @@ def full_system_upgrade() -> None:
 
 def list_menu() -> int:
     print("\n")
-    print(colored.blue("Lazypac- Pacman simplifier for lazy pacman users"))
+    print(colored.blue("Lazypac- Pacman Simplifier for Lazy Pacman Users"))
     print(colored.green("1. Package Installer"))
     print(colored.green("2. Package Un-installer"))
     print(colored.green("3. Package Search"))
@@ -176,7 +176,7 @@ def list_menu() -> int:
     print(colored.green("6. Remove Pacman cache"))
     print(colored.green("7. Installed Packages"))
     print(colored.red("0. Exit"))
-    print(colored.yellow("99. Update Lazypac"))
+    print(colored.yellow("99. Check for Lazypac Update"))
     choice = list_menu_input_handler()
     return choice
 
