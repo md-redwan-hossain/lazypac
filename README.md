@@ -1,8 +1,14 @@
-# Lazypac- Pacman Simplifier for Lazy Pacman Users
+### Lazypac- Pacman Simplifier for Lazy Pacman Users
 
 <br>
 
 ![LazyPac in action](./lazypac_in_action.png)
+
+<br>
+
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 
 <br>
 
