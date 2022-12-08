@@ -1,10 +1,16 @@
 import os
 from shutil import which
+import hashlib
 
 
 def install_pip() -> None:
     print("\nPython Package Manager(pip) is missing! Installing...\n")
     os.system("sudo -S pacman -S --needed --noconfirm python-pip")
+
+
+def install_curl() -> None:
+    print("\nCurl is missing! Installing...\n")
+    os.system("sudo -S pacman -S --needed --noconfirm curl")
 
 
 def install_pacman_contrib() -> None:
@@ -13,6 +19,7 @@ def install_pacman_contrib() -> None:
 
 
 install_pip() if not which("pip") else None
+install_curl() if not which("pip") else None
 install_pacman_contrib() if not which("paccache") else None
 
 
@@ -23,6 +30,32 @@ except ModuleNotFoundError:
     os.system("pip3 install clint")
     print("\nRelaunch lazypac again to load the installed dependencies...")
     exit()
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LAZYPAC_GIT_RAW_URL = "https://raw.githubusercontent.com/redwan-hossain/lazypac/main/lazypac.py"
+
+
+def update_lazypac() -> None:
+    if (os.path.exists(f"{BASE_DIR}/lazypac.py")):
+        os.system(
+            f'curl -s --output "$PWD/lazypac_updated.py" {LAZYPAC_GIT_RAW_URL}')
+
+        with open(f"{BASE_DIR}/lazypac.py", "rb") as file:
+            md5Hash_current = hashlib.md5(file.read())
+            hash_of_current_lazypac: str = md5Hash_current.hexdigest()
+
+        with open(f"{BASE_DIR}/lazypac_updated.py", "rb") as file:
+            md5Hash_new = hashlib.md5(file.read())
+            hash_of_updated_lazypac: str = md5Hash_new.hexdigest()
+
+        if hash_of_current_lazypac != hash_of_updated_lazypac:
+            os.system("mv lazypac_updated.py lazypac.py")
+            os.system("rm lazypac_updated.py")
+            print(colored.yellow("Lazypac has been updated!"))
+        else:
+            os.system("rm lazypac_updated.py")
+            print(colored.yellow("Lazypac is up to date."))
 
 
 def clear_console() -> None:
@@ -135,6 +168,7 @@ def list_menu() -> int:
     print(colored.green("6. Remove Pacman cache"))
     print(colored.green("7. Installed Packages"))
     print(colored.red("0. Exit"))
+    print(colored.yellow("99. Update Lazypac"))
     choice = list_menu_input_handler()
     return choice
 
@@ -161,6 +195,8 @@ def navigation() -> None:
                     pacman_cache_remove()
                 case 7:
                     show_installed_packages()
+                case 99:
+                    update_lazypac()
 
     except KeyboardInterrupt:
         print(colored.blue("\nBYE..."))
