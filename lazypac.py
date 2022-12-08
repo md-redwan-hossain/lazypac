@@ -1,16 +1,11 @@
-import os
 from shutil import which
 import hashlib
+import os
 
 
 def install_pip() -> None:
     print("\nPython Package Manager(pip) is missing! Installing...\n")
     os.system("sudo -S pacman -S --needed --noconfirm python-pip")
-
-
-def install_curl() -> None:
-    print("\nCurl is missing! Installing...\n")
-    os.system("sudo -S pacman -S --needed --noconfirm curl")
 
 
 def install_pacman_contrib() -> None:
@@ -19,27 +14,40 @@ def install_pacman_contrib() -> None:
 
 
 install_pip() if not which("pip") else None
-install_curl() if not which("pip") else None
 install_pacman_contrib() if not which("paccache") else None
 
+PIP_PACKAGE_NEEDED_COUNT = 2
+PIP_PACKAGE_AVAILABLE_COUNT = 0
 
 try:
     from clint.textui import colored
+    PIP_PACKAGE_AVAILABLE_COUNT += 1
 except ModuleNotFoundError:
-    print("\nDependency missing! Installing...\n")
+    print("\nDependency missing -> clint. Installing...\n")
     os.system("pip3 install clint")
+
+
+try:
+    import wget
+    PIP_PACKAGE_AVAILABLE_COUNT += 1
+except ModuleNotFoundError:
+    print("\nDependency missing -> wget. Installing...\n")
+    os.system("pip3 install wget")
+
+if PIP_PACKAGE_AVAILABLE_COUNT != PIP_PACKAGE_NEEDED_COUNT:
     print("\nRelaunch lazypac again to load the installed dependencies...")
     exit()
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LAZYPAC_GIT_RAW_URL = "https://raw.githubusercontent.com/redwan-hossain/lazypac/main/lazypac.py"
+LAZYPAC_URL = "https://raw.githubusercontent.com/redwan-hossain/lazypac/main/lazypac.py"
 
 
 def update_lazypac() -> None:
     if (os.path.exists(f"{BASE_DIR}/lazypac.py")):
-        os.system(
-            f'curl -s --output "$PWD/lazypac_updated.py" {LAZYPAC_GIT_RAW_URL}')
+        print(colored.cyan("Downloading lazypac from github repo...\n"))
+        wget.download(LAZYPAC_URL, f"{BASE_DIR}/lazypac_updated.py")
+        print("\n")
 
         with open(f"{BASE_DIR}/lazypac.py", "rb") as file:
             md5Hash_current = hashlib.md5(file.read())
@@ -50,9 +58,9 @@ def update_lazypac() -> None:
             hash_of_updated_lazypac: str = md5Hash_new.hexdigest()
 
         if hash_of_current_lazypac != hash_of_updated_lazypac:
+            os.system("rm lazypac.py")
             os.system("mv lazypac_updated.py lazypac.py")
-            os.system("rm lazypac_updated.py")
-            print(colored.yellow("Lazypac has been updated!"))
+            print(colored.yellow("Lazypac has been updated."))
         else:
             os.system("rm lazypac_updated.py")
             print(colored.yellow("Lazypac is up to date."))

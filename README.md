@@ -2,7 +2,7 @@
 
 <br>
 
-![LazyPac in action](./lazypac_snapshot.png)
+![LazyPac in action](./lazypac_screenshot.png)
 
 <br>
 
