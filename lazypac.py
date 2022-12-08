@@ -45,7 +45,7 @@ LAZYPAC_URL = "https://raw.githubusercontent.com/redwan-hossain/lazypac/main/laz
 
 def update_lazypac() -> None:
     if (os.path.exists(f"{BASE_DIR}/lazypac.py")):
-        print(colored.cyan("Downloading lazypac from github repo...\n"))
+        print(colored.cyan("\nDownloading lazypac from github repo...\n"))
         wget.download(LAZYPAC_URL, f"{BASE_DIR}/lazypac_updated.py")
         print("\n")
 
