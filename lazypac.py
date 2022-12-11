@@ -62,7 +62,7 @@ def update_lazypac() -> None:
             os.rename(f"{BASE_DIR}/lazypac_updated.py", f"{BASE_DIR}/lazypac.py")
             print(colored.yellow("Lazypac has been updated."))
         else:
-            os.system(f"rm {BASE_DIR}/lazypac.py")
+            os.remove(f"{BASE_DIR}/lazypac_updated.py")
             print(colored.yellow("Lazypac is up to date."))
 
 
