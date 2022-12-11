@@ -1,4 +1,4 @@
-### Lazypac- Pacman Simplifier for Lazy Pacman Users
+### Lazypac: Pacman Simplifier
 
 <br>
 
