@@ -167,7 +167,7 @@ def full_system_upgrade() -> None:
 
 def list_menu() -> int:
     print("\n")
-    print(colored.blue("Lazypac- Pacman Simplifier for Lazy Pacman Users"))
+    print(colored.blue("Lazypac: Pacman Simplifier"))
     print(colored.green("1. Package Installer"))
     print(colored.green("2. Package Un-installer"))
     print(colored.green("3. Package Search"))
