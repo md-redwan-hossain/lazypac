@@ -58,8 +58,8 @@ def update_lazypac() -> None:
             hash_of_updated_lazypac: str = md5Hash_new.hexdigest()
 
         if hash_of_current_lazypac != hash_of_updated_lazypac:
-            os.system(f"rm {BASE_DIR}/lazypac.py")
-            os.system("mv lazypac_updated.py lazypac.py")
+            os.remove(f"{BASE_DIR}/lazypac.py")
+            os.rename(f"{BASE_DIR}/lazypac_updated.py", f"{BASE_DIR}/lazypac.py")
             print(colored.yellow("Lazypac has been updated."))
         else:
             os.system(f"rm {BASE_DIR}/lazypac.py")
